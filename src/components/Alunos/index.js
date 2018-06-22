@@ -23,8 +23,8 @@ export default class Alunos extends React.Component {
 	render() {
 		let alunos = this.state.alunos.filter(aluno => {
 			return !!(
-				aluno.nome.indexOf(this.state.filter) > -1 ||
-				aluno.email.indexOf(this.state.filter) > -1 ||
+				aluno.nome.toLowerCase().indexOf(this.state.filter.toLowerCase()) > -1 ||
+				aluno.email.toLowerCase().indexOf(this.state.filter.toLowerCase()) > -1 ||
 				aluno.data_nascimento.indexOf(this.state.filter) > -1
 			)
 		})
@@ -32,14 +32,16 @@ export default class Alunos extends React.Component {
 		const NotFound = () => {
 			return (
 				<div className="alert alert-info" role="alert">
-				  Não foram encontrados alunos com o termo <i>{this.state.filter}</i>.
+          {this.state.filter.length
+          ? `Não foram encontrados alunos com o termo "${this.state.filter}".`
+          : "Nenhum aluno cadastrado"}
 				</div>
 			)
 		}
 
 		const Table = () => {
 			const rows = alunos.map(aluno => {
-        let data_nascimento = aluno.data_nascimento;
+        let data_nascimento = aluno.data_nascimento
 
         if (data_nascimento) {
   				data_nascimento = (new Date(aluno.data_nascimento))
@@ -82,7 +84,7 @@ export default class Alunos extends React.Component {
 		return <div>
       <form onSubmit={this.onSubmit}>
         <div className="form-group">
-          <input className="form-control" type="search" autoFocus="true" autoComplete="false" spellCheck="false" value={this.state.filter} placeholder="Escreva aqui para pesquisar" onChange={this.onChange}/>
+          <input className="form-control" type="search" autoFocus="true" autoComplete="false" spellCheck="false" value={this.state.filter} placeholder="Escreva aqui para filtrar os alunos" onChange={this.onChange}/>
         </div>
       </form>
 
@@ -118,14 +120,10 @@ export default class Alunos extends React.Component {
     this.setState({ alunos })
   }
   onAlunoEdited(aluno_atualizado) {
-    var alunos = this.state.alunos
-    var foundIndex = alunos.findIndex(aluno => aluno._id === aluno_atualizado._id)
-
-    console.log(aluno_atualizado, alunos, foundIndex)
+    let alunos = this.state.alunos
+    let foundIndex = alunos.findIndex(aluno => aluno._id === aluno_atualizado._id)
 
     alunos[foundIndex] = aluno_atualizado
-    console.log('before', alunos[foundIndex])
-    console.log('after', aluno_atualizado)
 
     alunos.sort((a, b) => a.nome > b.nome)
 

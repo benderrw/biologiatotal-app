@@ -10,7 +10,7 @@ import {
 
 const API = 'http://localhost:4000/api'
 
-export default class AlunosDelete extends React.Component {
+export default class CursosDelete extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +29,7 @@ export default class AlunosDelete extends React.Component {
         <Modal isOpen={this.state.active}>
           <ModalHeader toggle={this.toggleModal}>Confirmação</ModalHeader>
           <ModalBody>
-            Você realmente deseja deletar o aluno <strong>{this.props.aluno.nome}</strong>?
+            Você realmente deseja deletar o curso <strong>{this.props.curso.titulo}</strong>?
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.onSubmit}>Deletar</Button>{' '}
@@ -45,10 +45,10 @@ export default class AlunosDelete extends React.Component {
     })
   }
   onSubmit(event) {
-    axios.delete(`${API}/alunos/${this.props.aluno._id}`)
+    axios.delete(`${API}/cursos/${this.props.curso._id}`)
       .then(res => {
         this.toggleModal()
-        this.props.onAlunoDeleted(this.props.aluno._id)
+        this.props.onCursoDeleted(this.props.curso._id)
       })
       .catch(error => console.error(error))
   }

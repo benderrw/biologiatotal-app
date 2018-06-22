@@ -13,7 +13,7 @@ import TextField from '../TextField'
 
 const API = 'http://localhost:4000/api'
 
-export default class AlunosAdd extends React.Component {
+export default class AlunosEdit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -61,7 +61,6 @@ export default class AlunosAdd extends React.Component {
                 onChange={this.onChange}
                 onEnter={this.onSubmit}
               />
-
               <TextField
                 type="date"
                 label="Data de Nascimento"
@@ -147,10 +146,8 @@ export default class AlunosAdd extends React.Component {
       errors.emailError = 'Email deve ter no máximo 400 caracteres'
     }
 
-    if (isError) {
-      this.setState(errors);
-    }
+    if (isError) this.setState(errors)
 
-    return isError;
+    return isError
   }
 }

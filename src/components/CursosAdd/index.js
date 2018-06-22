@@ -13,17 +13,15 @@ import TextField from '../TextField'
 
 const API = 'http://localhost:4000/api'
 
-export default class AlunosAdd extends React.Component {
+export default class CursosAdd extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       active: false,
-      nome: '',
-      nomeError: '',
-      email: '',
-      emailError: '',
-      data_nascimento: '',
-      data_nascimentoError: ''
+      titulo: '',
+      tituloError: '',
+      descricao: '',
+      descricaoError: ''
     }
     this.toggleModal = this.toggleModal.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -33,42 +31,31 @@ export default class AlunosAdd extends React.Component {
     return (
       <div className="d-inline ml-1">
         <button type="button" className="ButtonAction" onClick={this.toggleModal}>
-          <kbd>Novo Aluno</kbd>
+          <kbd>Novo Curso</kbd>
         </button>
 
         <Modal isOpen={this.state.active}>
-          <ModalHeader toggle={this.toggle}>Novo Aluno</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Novo Curso</ModalHeader>
           <ModalBody>
             <Form>
               <TextField
                 type="text"
-                label="Nome*"
-                name="nome"
-                id="nome"
+                label="Título*"
+                name="titulo"
+                id="titulo"
                 value=""
-                errorText={this.state.nameError}
+                errorText={this.state.tituloError}
                 onChange={this.onChange}
                 onEnter={this.onSubmit}
               />
 
               <TextField
-                type="email"
-                label="E-mail*"
-                name="email"
-                id="email"
+                type="text"
+                label="Descrição"
+                name="descricao"
+                id="descricao"
                 value=""
-                errorText={this.state.emailError}
-                onChange={this.onChange}
-                onEnter={this.onSubmit}
-              />
-
-              <TextField
-                type="date"
-                label="Data de Nascimento"
-                name="data_nascimento"
-                id="data-nascimento"
-                value=""
-                errorText={this.state.data_nascimentoError}
+                errorText={this.state.descricaoError}
                 onChange={this.onChange}
                 onEnter={this.onSubmit}
               />
@@ -102,14 +89,13 @@ export default class AlunosAdd extends React.Component {
     const err = this.validate()
 
     if (!err) {
-      axios.post(`${API}/alunos`, {
-        nome: this.state.nome,
-        email: this.state.email,
-        data_nascimento: this.state.data_nascimento
+      axios.post(`${API}/cursos`, {
+        titulo: this.state.titulo,
+        descricao: this.state.decricao
       })
         .then(response => {
           this.toggleModal()
-          this.props.onAlunoAdded(response.data)
+          this.props.onCursoAdded(response.data)
         })
         .catch(error => console.error(error))
     }
@@ -117,31 +103,16 @@ export default class AlunosAdd extends React.Component {
   validate() {
     let isError = false
     let errors = {}
-    let regex = null
 
     this.setState({
-      nomeError: '',
-      emailError: '',
-      data_nascimentoError: ''
+      tituloError: '',
+      descricaoError: ''
     })
 
-    // NOME VALIDATION
-    if (!this.state.nome) {
+    // TÍTULO VALIDATION
+    if (!this.state.titulo) {
       isError = true
-      errors.nomeError = 'Nome é obrigatório'
-    }
-
-    // EMAIL VALIDATION
-    regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-    if (!this.state.email) {
-      isError = true
-      errors.emailError = 'E-mail é obrigatório'
-    } else if (!regex.test(String(this.state.email).toLowerCase())) {
-      isError = true
-      errors.emailError = 'E-mail deve ser um endereço válido'
-    } else if (this.state.email.length > 400) {
-      isError = true
-      errors.emailError = 'Email deve ter no máximo 400 caracteres'
+      errors.tituloError = 'Título é obrigatório'
     }
 
     if (isError) {
