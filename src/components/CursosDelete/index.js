@@ -7,6 +7,7 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap'
+import PropTypes from 'prop-types'
 
 const API = 'http://localhost:4000/api'
 
@@ -52,4 +53,8 @@ export default class CursosDelete extends React.Component {
       })
       .catch(error => console.error(error))
   }
+}
+
+CursosDelete.propTypes = {
+  onCursoDeleted: PropTypes.func
 }

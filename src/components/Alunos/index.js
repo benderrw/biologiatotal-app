@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import {NavLink} from 'react-router-dom'
 import AlunosAdd from '../AlunosAdd'
 import AlunosEdit from '../AlunosEdit'
 import AlunosDelete from '../AlunosDelete'
@@ -50,13 +51,15 @@ export default class Alunos extends React.Component {
           data_nascimento = ''
         }
 
-
 				return (
 					<tr key={aluno._id}>
 						<td>{aluno.nome}</td>
 						<td>{aluno.email}</td>
             <td>{data_nascimento}</td>
 						<td align="center">
+              <NavLink to={`/aluno/${aluno._id}`} className="ButtonAction">
+                <kbd>Visualizar</kbd>
+              </NavLink>
               <AlunosEdit onAlunoEdited={this.onAlunoEdited} aluno={aluno}/>
               <AlunosDelete onAlunoDeleted={this.onAlunoDeleted} aluno={aluno}/>
             </td>

@@ -10,6 +10,7 @@ import {
   FormText
 } from 'reactstrap'
 import TextField from '../TextField'
+import PropTypes from 'prop-types'
 
 const API = 'http://localhost:4000/api'
 
@@ -31,7 +32,7 @@ export default class AlunosEdit extends React.Component {
   }
   render() {
     return (
-      <div className="d-inline">
+      <div className="d-inline ml-1">
         <button type="button" className="ButtonAction" onClick={this.toggleModal}>
           <kbd>Editar</kbd>
         </button>
@@ -150,4 +151,8 @@ export default class AlunosEdit extends React.Component {
 
     return isError
   }
+}
+
+AlunosEdit.propTypes = {
+  onAlunoEdited: PropTypes.func
 }

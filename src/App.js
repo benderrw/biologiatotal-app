@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
 
+import Aluno from './components/Aluno'
 import Alunos from './components/Alunos'
 import Cursos from './components/Cursos'
 
@@ -16,6 +17,7 @@ export default () => {
 
       <div className="Dashboard">
         <Switch>
+          <Route path='/aluno/:id' component={Aluno}/>
           <Route path='/alunos' component={Alunos}/>
           <Route path='/cursos' component={Cursos}/>
           <Redirect from='/' to='/alunos'/>

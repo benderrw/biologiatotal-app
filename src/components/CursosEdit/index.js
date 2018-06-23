@@ -10,6 +10,7 @@ import {
   FormText
 } from 'reactstrap'
 import TextField from '../TextField'
+import PropTypes from 'prop-types'
 
 const API = 'http://localhost:4000/api'
 
@@ -122,4 +123,8 @@ export default class CursosEdit extends React.Component {
 
     return isError
   }
+}
+
+CursosEdit.propTypes = {
+  onCursoEdited: PropTypes.func
 }

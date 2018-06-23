@@ -10,6 +10,7 @@ import {
   FormText
 } from 'reactstrap'
 import TextField from '../TextField'
+import PropTypes from 'prop-types'
 
 const API = 'http://localhost:4000/api'
 
@@ -46,7 +47,7 @@ export default class AlunosAdd extends React.Component {
                 name="nome"
                 id="nome"
                 value=""
-                errorText={this.state.nameError}
+                errorText={this.state.nomeError}
                 onChange={this.onChange}
                 onEnter={this.onSubmit}
               />
@@ -150,4 +151,8 @@ export default class AlunosAdd extends React.Component {
 
     return isError
   }
+}
+
+AlunosAdd.propTypes = {
+  onAlunoAdded: PropTypes.func
 }
